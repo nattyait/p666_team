@@ -16,11 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from members import views
+from django.conf.urls import url
+import os
+from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # ex: /members/
     path('member', views.index, name='index'),
     # ex: /members/5/
-    path('member/<str:member_id>/', views.member, name='member')
+    path('member/<str:member_id>/', views.member, name='member'),
+    url(r'^(.*)$', serve, {'document_root':os.path.join(os.path.dirname(__file__), '')})
 ]
