@@ -14,7 +14,11 @@ def index(request):
 
 def member(request, member_id):
     member = Member.objects.get(member_id=member_id)
-    return HttpResponse("You're looking at member %s." % member.name)
+    template = loader.get_template('members/member.html')
+    context = {
+        'member': member,
+    }
+    return HttpResponse(template.render(context, request))
 
 class IDCardGenerating:
     def generate_idcard(self, member):

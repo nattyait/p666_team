@@ -26,5 +26,5 @@ urlpatterns = [
     path('members/', views.index, name='index'),
     # ex: /members/5/
     path('members/<str:member_id>/', views.member, name='member'),
-    url(r'^(.*)$', serve, {'document_root':os.path.join(os.path.dirname(__file__), '')})
+    url(r'^(.*)$', serve, {'document_root':os.path.join(os.path.dirname(__file__), '../')})
 ]
