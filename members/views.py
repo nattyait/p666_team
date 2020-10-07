@@ -111,7 +111,7 @@ class MemberView(TemplateView):
         y = y + 85
         text_pos = (x + 120, y)
         text = facebook
-        font = ImageFont.truetype('ThaiSansNeue-Bold.ttf', 42)
+        font = ImageFont.truetype('ThaiSansNeue-Bold.ttf', 35)
         draw.text(text_pos, text, fill=red, font=font)
         del draw
 
