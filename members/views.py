@@ -40,14 +40,12 @@ class MemberView(TemplateView):
             }
         )
         
-    def get_card_template(self, member):
-        member_card = ''
-        level = member.level
-        member_card, x, y = self.profile_image_position(level)
-        return member_card, x, y
 
     def generate_member_card(self, member):
-        member_card_template, x, y = self.get_card_template(member)
+        member_card = ''
+        level = member.level
+        member_card_template, x, y = self.get_profile_image_and_position(level)
+        
         member_card_background = Image.open(member_card_template)
         member_profile_image = Image.open(member.image)
         width, height = member_profile_image.size
@@ -62,9 +60,75 @@ class MemberView(TemplateView):
         member_profile_image = member_profile_image.crop((0,0,370,500))
         member_card_background.paste(member_profile_image, (x, y))
 
+        name, member_id, area, line_id, facebook, tel, x, y = self.get_text_and_position(member)
+        # Name
+        draw = ImageDraw.Draw(member_card_background)
+        red = (139, 99, 40)
+        #black = (0, 0, 0)
+        text_pos = (x, y)
+        text = name
+        font = ImageFont.truetype('ThaiSansNeue-Bold.ttf', 40)
+        draw.text(text_pos, text, fill=red, font=font)
+        del draw
+
+        # member_id
+        draw = ImageDraw.Draw(member_card_background)
+        red = (139, 99, 40)
+        #black = (0, 0, 0)
+        y = y + 86
+        text_pos = (x, y)
+        text = member_id
+        font = ImageFont.truetype('ThaiSansNeue-Bold.ttf', 40)
+        draw.text(text_pos, text, fill=red, font=font)
+        del draw
+
+        # area
+        draw = ImageDraw.Draw(member_card_background)
+        ed = (139, 99, 40)
+        #black = (0, 0, 0)
+        y = y + 86
+        text_pos = (x, y)
+        text = area
+        font = ImageFont.truetype('ThaiSansNeue-Bold.ttf', 42)
+        draw.text(text_pos, text, fill=red, font=font)
+        del draw
+
+        # line_id
+        draw = ImageDraw.Draw(member_card_background)
+        ed = (139, 99, 40)
+        #black = (0, 0, 0)
+        y = y + 85
+        text_pos = (x, y)
+        text = line_id
+        font = ImageFont.truetype('ThaiSansNeue-Bold.ttf', 42)
+        draw.text(text_pos, text, fill=red, font=font)
+        del draw
+
+         # facebook
+        draw = ImageDraw.Draw(member_card_background)
+        ed = (139, 99, 40)
+        #black = (0, 0, 0)
+        y = y + 85
+        text_pos = (x + 120, y)
+        text = facebook
+        font = ImageFont.truetype('ThaiSansNeue-Bold.ttf', 42)
+        draw.text(text_pos, text, fill=red, font=font)
+        del draw
+
+         # tel
+        draw = ImageDraw.Draw(member_card_background)
+        ed = (139, 99, 40)
+        #black = (0, 0, 0)
+        y = y + 85
+        text_pos = (x + 80, y)
+        text = tel
+        font = ImageFont.truetype('ThaiSansNeue-Bold.ttf', 42)
+        draw.text(text_pos, text, fill=red, font=font)
+        del draw
+
         return member_card_background
     
-    def profile_image_position(self, level):
+    def get_profile_image_and_position(self, level):
         if level == 'Grand Dealer':
             member_card = 'card_templates/grand_dealer.jpg'
             x = 72
@@ -98,3 +162,39 @@ class MemberView(TemplateView):
             x = 60
             y = 342
         return member_card, x, y
+
+    def get_text_and_position(self, member):
+        level = member.level
+        name = member.name
+        member_id = member.member_id
+        if level == "Grand Dealer" or level == "Coach":
+            member_id = 'P666'
+        area = member.area
+        line_id = member.line_id
+        facebook = member.facebook
+        tel = member.tel
+        if level == 'Grand Dealer':
+            x = 620
+            y = 350
+        elif level == 'Dealer':
+            x = 620
+            y = 350
+        elif level == 'Super VIP Gold':
+            x = 620
+            y = 350
+        elif level == 'VIP Gold':
+            x = 620
+            y = 350
+        elif level == 'VIP':
+            x = 620
+            y = 350
+        elif level == 'ตัวแทนหลัก':
+            x = 620
+            y = 350
+        elif level == 'ตัวแทนย่อย':
+            x = 620
+            y = 350
+        elif level == 'Start':
+            x = 620
+            y = 350
+        return name, member_id, area, line_id, facebook, tel, x, y
