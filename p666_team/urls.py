@@ -21,7 +21,7 @@ import os
 from django.views.static import serve
 
 urlpatterns = [
-    path('app/admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     # ex: /members/
     path('', views.MemberListView.as_view(), name="members"),
     # ex: /members/5/
