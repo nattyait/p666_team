@@ -1,1 +1,1 @@
-web: gunicorn backend.wsgi --log-file -
+web: gunicorn {p666_team.wsgi

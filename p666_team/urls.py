@@ -23,7 +23,7 @@ from django.views.static import serve
 urlpatterns = [
     path('admin/', admin.site.urls),
     # ex: /members/
-    path('members/', views.MemberListView.as_view(), name="members"),
+    path('', views.MemberListView.as_view(), name="members"),
     # ex: /members/5/
     path('members/<str:member_id>/', views.MemberView.as_view(), name="member"),
     url(r'^(.*)$', serve, {'document_root':os.path.join(os.path.dirname(__file__), '../')})

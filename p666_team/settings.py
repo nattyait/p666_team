@@ -12,9 +12,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',
 
     'imagekit',
 ]
@@ -117,11 +121,29 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Change 'default' database configuration with $DATABASE_URL.
+DATABASES['default'].update(dj_database_url.config(conn_max_age=500, ssl_require=True))
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_ROOT, 'static'),
+]
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Base url to serve media files
 MEDIA_URL = '/media/'
@@ -130,15 +152,7 @@ import os
 # Path where media is stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-if os.getcwd() == '/app':
-    import dj_database_url
-    db_from_env = dj_database_url.config(conn_max_age=500)
-    DATABASES['default'].update(db_from_env)
-
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    ALLOWED_HOSTS = ['p666-member.herokuapp.com']
-    DEBUG = True
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(file)))
+# Activate Django-Heroku.
+django_heroku.settings(locals())
 
