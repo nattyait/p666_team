@@ -1,1 +1,1 @@
-web: gunicorn {p666_team.wsgi
+web: gunicorn p666_team.wsgi
