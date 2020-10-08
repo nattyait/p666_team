@@ -27,18 +27,11 @@ class MemberView(TemplateView):
         member_id = self.kwargs['member_id']
         member = Member.objects.get(member_id=member_id)
         member_card = self.generate_member_card(member)
-        member_card.show()
-        #response = HttpResponse(member_card, content_type="image/png")
-        #member_card.save(response, "PNG")
-        #return response
-        return render(
-            request,
-            self.template,
-            {
-            'member': member,
-            'member_card': member_card,
-            }
-        )
+        # member_card.show()
+
+        response = HttpResponse(content_type="image/png")
+        member_card.save(response, "PNG")
+        return response
         
 
     def generate_member_card(self, member):
