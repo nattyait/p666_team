@@ -3,7 +3,7 @@ from .overwritestorage import OverwriteStorage
 from django.core.exceptions import ValidationError
 
 def content_file_name(instance, filename):
-    return '/'.join(['member_images', str(instance.id) + '.jpg'])
+    return '/'.join(['member_images', str(instance.member_id) + '.jpg'])
 
 class Member(models.Model):
     def validate_image(fieldfile_obj):
@@ -11,7 +11,7 @@ class Member(models.Model):
         megabyte_limit = 1.5
         if filesize > megabyte_limit*1024*1024:
             raise ValidationError("Max file size is %sMB" % str(megabyte_limit))
-    class Level(models.TextChoices):        
+    class Level(models.TextChoices):
         COACH = "Coach"
         GRAND_DEALER = "Grand Dealer"
         DEALER = "Dealer"

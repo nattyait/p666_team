@@ -25,6 +25,6 @@ urlpatterns = [
     # ex: /members/
     path('', views.MemberListView.as_view(), name="members"),
     # ex: /members/5/
-    path('app/members/<str:member_id>/', views.MemberView.as_view(), name="member"),
+    path('members/<str:member_id>/', views.MemberView.as_view(), name="member"),
     url(r'^(.*)$', serve, {'document_root':os.path.join(os.path.dirname(__file__), '../')})
 ]
