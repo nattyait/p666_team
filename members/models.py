@@ -30,7 +30,6 @@ class Member(models.Model):
     level = models.CharField(max_length=20, choices=Level.choices, default=Level.START)
     parent_member = models.ForeignKey("self", on_delete=models.CASCADE, default=1)
     image = models.ImageField(upload_to = content_file_name, 
-        storage=OverwriteStorage(), 
         default = 'member_images/no-img.jpg',
         validators=[validate_image])
 
