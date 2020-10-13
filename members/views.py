@@ -21,13 +21,11 @@ class MemberListView(TemplateView):
         )
 
 class MemberView(TemplateView):
-    template = "member.html"
 
     def get(self, request, *args, **kwargs):
         member_id = self.kwargs['member_id']
         member = Member.objects.get(member_id=member_id)
         member_card = self.generate_member_card(member)
-        # member_card.show()
 
         response = HttpResponse(content_type="image/png")
         member_card.save(response, "PNG")
@@ -191,3 +189,21 @@ class MemberView(TemplateView):
             x = 620
             y = 350
         return name, member_id, area, line_id, facebook, tel, x, y
+
+class TeamView(TemplateView):
+    template = "team.html"
+
+    def get(self, request, *args, **kwargs):
+        member_id = self.kwargs['member_id']
+        parent_member = Member.objects.get(member_id=member_id)
+        member_list = Member.objects.filter(parent_member__member_id=member_id)
+        member_count = Member.objects.filter(parent_member__member_id=member_id).count()
+        return render(
+            request,
+            self.template,
+            {
+                'parent_member': parent_member,
+                'member_list': member_list,
+                'member_count': member_count,
+            }
+        )
