@@ -22,6 +22,7 @@ class Member(models.Model):
         LEVEL1 = "ตัวแทนย่อย"
         START = "Start"
     name = models.CharField(max_length=200)
+    nickname = models.CharField(max_length=200, blank=True)
     member_id  = models.CharField(max_length=10, unique=True)
     area = models.CharField(max_length=200)
     line_id = models.CharField(max_length=200)
