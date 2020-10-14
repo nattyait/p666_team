@@ -1,8 +1,8 @@
-TEAM {{ parent_member.member_id}}: {{ parent_member.name }} ({{ member_count }})
+สมาชิกทีม {{ parent_member.member_id}}: {{ parent_member.name }} ({{ member_count }})
 {% if member_list %}
     <ul>
     {% for member in member_list %}
-        <li><a href="../{{ member.member_id }}/">{{ member.member_id}}: {{ member.name }}</a></li>
+        <li>{{ member.member_id}}: {{ member.name }} <a href="../{{ member.member_id }}/">แสดงรายชื่อทีม</a></li>
     {% endfor %}
     </ul>
 {% else %}
