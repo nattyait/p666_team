@@ -35,4 +35,4 @@ class Member(models.Model):
         validators=[validate_image])
 
     def __str__(self):
-            return self.member_id + ": " + self.name + " -> " + self.level
+            return self.member_id + ": " + self.nickname + " - " + self.name + " -> " + self.level + " ทีม" + self.parent_member.nickname
