@@ -1,7 +1,7 @@
 {% if latest_member_list %}
     <ul>
     {% for member in latest_member_list %}
-        <li><a href="members/{{ member.member_id }}/">{{ member.member_id}}: {{ member.nickname }} - {{ member.name }}</a></li>
+        <li><a href="members/{{ member.member_id }}/">{{ member.member_id}}: {{ member.nickname }} - {{ member.name }}</a> - <a href="team/{{ member.member_id }}/">แสดงรายชื่อทีม</a></li>
     {% endfor %}
     </ul>
 {% else %}
