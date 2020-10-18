@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'imagekit',
     'storages',
     'boto3',
+    'ajax_select',
 ]
 
 MIDDLEWARE = [
@@ -170,6 +171,10 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STATIC_URL = 'http://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+
+AJAX_LOOKUP_CHANNELS = {
+     'member' : ('members.lookups', 'MembersLookup'),
+}
 
 
 # Activate Django-Heroku.

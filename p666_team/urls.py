@@ -19,13 +19,16 @@ from members import views
 from django.conf.urls import url
 import os
 from django.views.static import serve
+from django.conf.urls import include
+from ajax_select import urls as ajax_select_urls
 
 urlpatterns = [
+    url(r'^ajax_select/', include(ajax_select_urls)),
     path('admin/', admin.site.urls),
     # ex: /members/
     path('', views.MemberListView.as_view(), name="members"),
     # ex: /members/5/
     path('members/<str:member_id>/', views.MemberView.as_view(), name="member"),
     path('team/<str:member_id>/', views.TeamView.as_view(), name="team"),
-    url(r'^(.*)$', serve, {'document_root':os.path.join(os.path.dirname(__file__), '../')})
+    url(r'^(.*)$', serve, {'document_root':os.path.join(os.path.dirname(__file__), '../')}),
 ]
