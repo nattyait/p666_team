@@ -4,6 +4,9 @@ from ajax_select import make_ajax_form
 
 from .models import Member, Order
 
+class OrderInline(admin.TabularInline):
+    model = Order
+
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
     image_display = AdminThumbnail(image_field='image')
@@ -17,10 +20,14 @@ class MemberAdmin(admin.ModelAdmin):
         'parent_member':'member'      # ForeignKeyField
     })
 
+    inlines = [
+        OrderInline,
+    ]
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     search_fields = ['amount','member__name', 'member__member_id', 'member__nickname', 'product__name']
     form = make_ajax_form(Order, {
         'member':'member'      # ForeignKeyField
     })
-    
+

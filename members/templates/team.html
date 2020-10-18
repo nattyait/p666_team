@@ -1,8 +1,11 @@
 สมาชิกทีม {{ parent_member.member_id}}: {{ parent_member.name }} ({{ member_count }})
+<br/>
+<a href="../../order/{{ parent_member.member_id }}/">รายการสั่งสินค้า</a>
+
 {% if member_list %}
     <ul>
     {% for member in member_list %}
-        <li><a href="../../members/{{ member.member_id }}/">{{ member.member_id}}: {{ member.nickname }} - {{ member.name }}</a> - <a href="../{{ member.member_id }}/">แสดงรายชื่อทีม</a></li>
+        <li><a href="../../members/{{ member.member_id }}/">{{ member.member_id}}: {{ member.nickname }} - {{ member.name }}</a> - <a href="../{{ member.member_id }}/">แสดงรายชื่อทีม</a> - <a href="../../order/{{ member.member_id }}/">รายการสั่งสินค้า</a></li>
     {% endfor %}
     </ul>
 {% else %}

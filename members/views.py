@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from PIL import Image, ImageDraw, ImageFont
 
-from .models import Member
+from .models import Member, Order
 
 from django.views.generic import TemplateView
 
@@ -205,5 +205,22 @@ class TeamView(TemplateView):
                 'parent_member': parent_member,
                 'member_list': member_list,
                 'member_count': member_count,
+            }
+        )
+
+class MemberOrderView(TemplateView):
+    template = "order.html"
+
+    def get(self, request, *args, **kwargs):
+        member_id = self.kwargs['member_id']
+        member = Member.objects.get(member_id=member_id)
+        order_list = Order.objects.filter(member__member_id=member_id)
+
+        return render(
+            request,
+            self.template,
+            {
+                'member': member,
+                'order_list': order_list,
             }
         )
