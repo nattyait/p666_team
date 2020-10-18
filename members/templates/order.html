@@ -1,0 +1,12 @@
+การสั่งซื้อของ {{ member.member_id}}: {{ member.name }}
+<br/>
+
+{% if order_list %}
+    <ul>
+    {% for order in order_list %}
+        <li>{{ order.order_date }}: {{ order.product.name }} = {{ order.amount }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No orders available.</p>
+{% endif %}
