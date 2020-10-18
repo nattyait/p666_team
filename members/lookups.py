@@ -10,4 +10,4 @@ class MembersLookup(LookupChannel):
         return self.model.objects.filter(name__icontains=q).order_by('name')[:50] | self.model.objects.filter(nickname__icontains=q).order_by('name')[:50]
 
     def format_item_display(self, item):
-        return u"<span class='tag'>%s</span>" % item.name
+        return u"<span class='tag'>%s %s - %s</span>" % (item.member_id, item.nickname, item.name)

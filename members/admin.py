@@ -13,6 +13,10 @@ class MemberAdmin(admin.ModelAdmin):
 
     readonly_fields = ['image_display']
 
+    form = make_ajax_form(Member, {
+        'parent_member':'member'      # ForeignKeyField
+    })
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     form = make_ajax_form(Order, {
