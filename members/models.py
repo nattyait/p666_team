@@ -36,3 +36,11 @@ class Member(models.Model):
 
     def __str__(self):
             return self.member_id + ": " + self.nickname + " - " + self.name + " -> " + self.level + " ทีม" + self.parent_member.nickname
+
+class Order(models.Model):
+    order_date = models.DateField()
+    member = models.ForeignKey('Member', on_delete=models.CASCADE)
+    product = models.ForeignKey('products.Product', on_delete=models.CASCADE)
+    amount = models.IntegerField()
+    price = models.FloatField()
+    desc = models.TextField(null=True, blank=True)
