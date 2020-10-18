@@ -21,6 +21,7 @@ import os
 from django.views.static import serve
 from django.conf.urls import include
 from ajax_select import urls as ajax_select_urls
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     url(r'^ajax_select/', include(ajax_select_urls)),
@@ -29,6 +30,6 @@ urlpatterns = [
     path('', views.MemberListView.as_view(), name="members"),
     # ex: /members/5/
     path('members/<str:member_id>/', views.MemberView.as_view(), name="member"),
-    path('team/<str:member_id>/', views.TeamView.as_view(), name="team"),
+    path('team/<str:member_id>/', login_required(login_url='/admin/')(views.TeamView.as_view()), name="team"),
     url(r'^(.*)$', serve, {'document_root':os.path.join(os.path.dirname(__file__), '../')}),
 ]

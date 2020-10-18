@@ -19,6 +19,7 @@ class MemberAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
+    search_fields = ['amount','member__name', 'member__member_id', 'member__nickname', 'product__name']
     form = make_ajax_form(Order, {
         'member':'member'      # ForeignKeyField
     })

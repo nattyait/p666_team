@@ -44,3 +44,6 @@ class Order(models.Model):
     amount = models.IntegerField()
     price = models.FloatField()
     desc = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return str(self.order_date) + ": " + self.member.nickname + " - " + self.member.name + " -> " + self.product.name + " = " + str(self.amount)
