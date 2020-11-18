@@ -120,7 +120,11 @@ class MemberView(TemplateView):
         return member_card_background
     
     def get_profile_image_and_position(self, level):
-        if level == 'Grand Dealer':
+        if level == 'Grand Exclusive':
+            member_card = 'card_templates/grand_exclusive.jpg'
+            x = 74
+            y = 300
+        elif level == 'Grand Dealer':
             member_card = 'card_templates/grand_dealer.jpg'
             x = 72
             y = 342
@@ -158,13 +162,16 @@ class MemberView(TemplateView):
         level = member.level
         name = member.name
         member_id = member.member_id
-        if level == "Grand Dealer" or level == "Coach":
+        if level == "Grand Dealer" or level == "Coach" or level == "Grand Exclusive":
             member_id = 'P666'
         area = member.area
         line_id = member.line_id
         facebook = member.facebook
         tel = member.tel
-        if level == 'Grand Dealer':
+        if level == 'Grand Exclusive':
+            x = 620
+            y = 310
+        elif level == 'Grand Dealer':
             x = 620
             y = 350
         elif level == 'Dealer':
