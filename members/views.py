@@ -2,8 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from PIL import Image, ImageDraw, ImageFont
+from rest_framework import viewsets
+from rest_framework import permissions
 
 from .models import Member, Order
+from .serializers import MemberSerializer
 
 from django.views.generic import TemplateView
 
@@ -152,7 +155,8 @@ class MemberView(TemplateView):
             x = 71
             y = 342
             member_card = 'card_templates/level1.jpg'
-        elif level == 'Start':
+        #elif level == 'Start':
+        else:
             member_card = 'card_templates/start.jpg'
             x = 60
             y = 342
@@ -231,3 +235,11 @@ class MemberOrderView(TemplateView):
                 'order_list': order_list,
             }
         )
+
+class MemberViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Member.objects.all()
+    serializer_class = MemberSerializer
+    permission_classes = [permissions.IsAuthenticated]
