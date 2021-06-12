@@ -152,7 +152,8 @@ class MemberView(TemplateView):
             x = 71
             y = 342
             member_card = 'card_templates/level1.jpg'
-        elif level == 'Start':
+        #elif level == 'Start':
+        else:
             member_card = 'card_templates/start.jpg'
             x = 60
             y = 342
