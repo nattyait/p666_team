@@ -13,6 +13,7 @@ class Member(models.Model):
             raise ValidationError("Max file size is %sMB" % str(megabyte_limit))
     class Level(models.TextChoices):
         COACH = "Coach"
+        THE_BEST = "The Best"
         GRAND_EXCLUSIVE = "Grand Exclusive"
         GRAND_DEALER = "Grand Dealer"
         DEALER = "Dealer"
